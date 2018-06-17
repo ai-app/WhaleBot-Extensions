@@ -1,0 +1,105 @@
+"""
+WhaleBot Extension
+
+$extension_description: {
+    "name": "trend_evaluator",
+    "type": "evaluators",
+    "subtype": "TA",
+    "version": "1.0.0",
+    "requirements": []
+}
+"""
+import tulipy
+
+from config.constants import *
+import numpy
+import math
+
+from evaluators.TA.TA_evaluator import TrendEvaluator
+from extensions.evaluators.utils import TrendAnalysis
+from utils.data_util import DataUtil
+
+
+# evaluates position of the current (2 unit) average trend relatively to the 5 units average and 10 units average trend
+class DoubleMovingAverageTrendEvaluator(TrendEvaluator):
+
+    def eval_impl(self):
+        self.eval_note = START_PENDING_EVAL_NOTE
+        if len(self.data) > 1:
+            time_units = [5, 10]
+            current_moving_average = tulipy.sma(self.data[PriceIndexes.IND_PRICE_CLOSE.value], 2)
+            results = [self.get_moving_average_analysis(self.data[PriceIndexes.IND_PRICE_CLOSE.value],
+                                                        current_moving_average,
+                                                        i)
+                       for i in time_units]
+            self.eval_note = numpy.mean(results)
+
+            if self.eval_note == 0:
+                self.eval_note = START_PENDING_EVAL_NOTE
+
+    # < 0 --> Current average bellow other one (computed using time_period)
+    # > 0 --> Current average above other one (computed using time_period)
+    @staticmethod
+    def get_moving_average_analysis(data, current_moving_average, time_period):
+
+        time_period_unit_moving_average = tulipy.sma(data, time_period)
+
+        # equalize array size
+        min_len_arrays = min(len(time_period_unit_moving_average), len(current_moving_average))
+
+        # compute difference between 1 unit values and others ( >0 means currently up the other one)
+        values_difference = (current_moving_average[-min_len_arrays:] - time_period_unit_moving_average[-min_len_arrays:])
+        values_difference = DataUtil.drop_nan(values_difference)
+
+        if len(values_difference):
+            # indexes where current_unit_moving_average crosses time_period_unit_moving_average
+            crossing_indexes = TrendAnalysis.get_threshold_change_indexes(values_difference, 0)
+
+            multiplier = 1 if values_difference[-1] > 0 else -1
+
+            # check at least some data crossed 0
+            if crossing_indexes:
+                normalized_data = DataUtil.normalize_data(values_difference)
+                current_value = min(abs(normalized_data[-1])*2, 1)
+                if math.isnan(current_value):
+                    return 0
+                # check <= values_difference.count()-1if current value is max/min
+                if current_value == 0 or current_value == 1:
+                    chances_to_be_max = TrendAnalysis.get_estimation_of_move_state_relatively_to_previous_moves_length(
+                                                                                                    crossing_indexes,
+                                                                                                    values_difference)
+                    return multiplier*current_value*chances_to_be_max
+                # other case: maxima already reached => return distance to max
+                else:
+                    return multiplier*current_value
+
+        # just crossed the average => neutral
+        return 0
+
+
+# https://mrjbq7.github.io/ta-lib/func_groups/overlap_studies.html
+class CandleAnalysisTrendEvaluator(TrendEvaluator):
+
+    def eval_impl(self):
+        pass
+
+
+# directional_movement_index --> trend strength
+class DMITrendEvaluator(TrendEvaluator):
+
+    def eval_impl(self):
+        pass
+
+
+# bollinger_bands
+class BBTrendEvaluator(TrendEvaluator):
+
+    def eval_impl(self):
+        pass
+
+
+# ease_of_movement --> ease to change trend --> trend strength
+class EOMTrendEvaluator(TrendEvaluator):
+
+    def eval_impl(self):
+        pass
