@@ -13,6 +13,7 @@ $extension_description: {
 import math
 
 import tulipy
+from talib._ta_lib import CDLINVERTEDHAMMER, CDLDOJI, CDLSHOOTINGSTAR, CDLHAMMER, CDLHARAMI, CDLPIERCING
 
 from config.constants import *
 from evaluators.TA.TA_evaluator import MomentumEvaluator
