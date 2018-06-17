@@ -110,7 +110,7 @@ class CandlePatternMomentumEvaluator(MomentumEvaluator):
         self.factor = 0.5
 
     def update_note(self, pattern_bool):
-        last_value = pattern_bool.tail(1).values[0]
+        last_value = pattern_bool[len(pattern_bool)-1]
 
         # bullish
         if last_value >= 100:
