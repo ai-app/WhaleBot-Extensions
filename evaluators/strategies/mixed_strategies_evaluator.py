@@ -11,8 +11,8 @@ $extension_description: {
 """
 
 from config.constants import *
-from extensions.evaluators.realtime import InstantFluctuationsEvaluator
-from extensions.evaluators.social import MediumNewsEvaluator, RedditForumEvaluator
+from evaluators.realtime import InstantFluctuationsEvaluator
+from evaluators.social import MediumNewsEvaluator, RedditForumEvaluator
 from evaluators.strategies import MixedStrategiesEvaluator
 
 from utils.evaluators_util import check_valid_eval_note

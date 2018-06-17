@@ -16,8 +16,8 @@ import tulipy
 
 from config.constants import *
 from evaluators.TA.TA_evaluator import MomentumEvaluator
-from extensions.evaluators.utils import PatternAnalyser
-from extensions.evaluators.utils import TrendAnalysis
+from evaluators.utils import PatternAnalyser
+from evaluators.utils import TrendAnalysis
 from utils.data_util import DataUtil
 
 

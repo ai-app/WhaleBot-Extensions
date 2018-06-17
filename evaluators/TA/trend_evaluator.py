@@ -16,7 +16,7 @@ import numpy
 import math
 
 from evaluators.TA.TA_evaluator import TrendEvaluator
-from extensions.evaluators.utils import TrendAnalysis
+from evaluators.utils import TrendAnalysis
 from utils.data_util import DataUtil
 
 

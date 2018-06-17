@@ -14,8 +14,8 @@ $extension_description: {
 from config.constants import *
 from evaluators.social.social_evaluator import ForumSocialEvaluator
 from tools.advanced_manager import AdvancedManager
-from extensions.evaluators.utils import TextAnalysis
-from extensions.evaluators.utils import OverallStateAnalyser
+from evaluators.utils import TextAnalysis
+from evaluators.utils import OverallStateAnalyser
 from evaluators.dispatchers.reddit_dispatcher import RedditDispatcher
 from evaluators.dispatchers.abstract_dispatcher import DispatcherAbstractClient
 

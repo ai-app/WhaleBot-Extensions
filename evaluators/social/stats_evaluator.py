@@ -18,7 +18,7 @@ from pytrends.request import TrendReq
 
 from config.constants import *
 from evaluators.social.social_evaluator import StatsSocialEvaluator
-from extensions.evaluators.utils import StatisticAnalysis
+from evaluators.utils import StatisticAnalysis
 from tools.advanced_manager import AdvancedManager
 
 

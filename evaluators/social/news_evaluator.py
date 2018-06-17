@@ -13,7 +13,7 @@ $extension_description: {
 
 from config.constants import *
 from evaluators.social.social_evaluator import NewsSocialEvaluator
-from extensions.evaluators.utils import TextAnalysis
+from evaluators.utils import TextAnalysis
 from tools.advanced_manager import AdvancedManager
 from evaluators.dispatchers.twitter_dispatcher import TwitterDispatcher
 from evaluators.dispatchers.abstract_dispatcher import DispatcherAbstractClient
