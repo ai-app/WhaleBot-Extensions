@@ -6,7 +6,8 @@ $extension_description: {
     "type": "trading",
     "subtype": "modes",
     "version": "1.0.0",
-    "requirements": []
+    "requirements": [],
+    "config_files": ["InvestorModeCreator.json"]
 }
 """
 

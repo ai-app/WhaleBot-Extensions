@@ -21,7 +21,6 @@ Check the last 12 candles and compute mean closing prices as well as mean volume
 compute the strength or weakness of the move
 """
 
-
 class InstantFluctuationsEvaluator(RealTimeTAEvaluator):
     def __init__(self, exchange, symbol):
         super().__init__(exchange, symbol)
