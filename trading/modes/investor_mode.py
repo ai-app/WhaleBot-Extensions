@@ -105,7 +105,8 @@ class InvestorModeCreator(AbstractTradingModeCreator):
 
         return self.check_factor(self.QUANTITY_MARKET_MIN_PERCENT, self.QUANTITY_MARKET_MAX_PERCENT, factor) * quantity
 
-    def can_create_order(self, symbol, exchange, state, portfolio):
+    @staticmethod
+    def can_create_order(symbol, exchange, state, portfolio):
         currency, market = split_symbol(symbol)
 
         # get symbol min amount when creating order
