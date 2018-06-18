@@ -132,10 +132,10 @@ class CandlePatternMomentumEvaluator(MomentumEvaluator):
 
     def eval_impl(self):
         if len(self.data):
-            open_values = self.data[PriceStrings.STR_PRICE_OPEN.value]
-            high_values = self.data[PriceStrings.STR_PRICE_HIGH.value]
-            low_values = self.data[PriceStrings.STR_PRICE_LOW.value]
-            close_values = self.data[PriceStrings.STR_PRICE_CLOSE.value]
+            open_values = self.data[PriceIndexes.IND_PRICE_OPEN.value]
+            high_values = self.data[PriceIndexes.IND_PRICE_HIGH.value]
+            low_values = self.data[PriceIndexes.IND_PRICE_LOW.value]
+            close_values = self.data[PriceIndexes.IND_PRICE_CLOSE.value]
 
             # Inverted Hammer
             # When the low and the open are the same, a bullish Inverted Hammer candlestick is formed and
